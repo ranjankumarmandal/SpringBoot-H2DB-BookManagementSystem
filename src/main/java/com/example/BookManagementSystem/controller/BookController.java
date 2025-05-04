@@ -4,10 +4,7 @@ import com.example.BookManagementSystem.entity.Book;
 import com.example.BookManagementSystem.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/book/v1")
@@ -20,5 +17,11 @@ public class BookController {
     public ResponseEntity<Book> addBook(@RequestBody Book book) {
         Book savedBook = bookService.addBook(book);
         return ResponseEntity.ok(savedBook);
+    }
+
+    @GetMapping("/getbook/{bookname}")
+    public ResponseEntity<Book> getBookByName(@PathVariable("bookname") String name) {
+        final Book bookByName = bookService.getBookByName(name);
+        return ResponseEntity.ok(bookByName);
     }
 }
